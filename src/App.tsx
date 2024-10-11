@@ -1,26 +1,40 @@
-import { FormEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import TodoItem from "./components/TodoItem";
 import BottomTab from "./components/BottomTab";
 
-export default function App() {
-    const [todos, setTodos] = useState([
-        { id: 1, text: "Тестовое задание", completed: false },
-        { id: 2, text: "Прекрасный код", completed: true },
-        { id: 3, text: "Покрытие тестами", completed: false },
-    ]);
+interface Item {
+    id: number;
+    text: string;
+    completed: boolean;
+}
 
-    const filters = useMemo(
-        () => [
-            { filter: "all", label: "All" },
-            { filter: "active", label: "Active" },
-            { filter: "completed", label: "Completed" },
-        ],
-        []
-    );
+const defaultItems: Item[] = [
+    { id: 1, text: "Тестовое задание", completed: false },
+    { id: 2, text: "Прекрасный код", completed: true },
+    { id: 3, text: "Покрытие тестами", completed: false },
+];
+
+const filters = [
+    { filter: "all", label: "All" },
+    { filter: "active", label: "Active" },
+    { filter: "completed", label: "Completed" },
+];
+
+const getItemsFromLocalStorage = () => {
+    const items: Item[] = JSON.parse(localStorage.getItem("items") ?? "null");
+    return items ?? defaultItems;
+};
+
+export default function App() {
+    const [todos, setTodos] = useState<Item[]>(getItemsFromLocalStorage);
 
     const newTodoInputRef = useRef<HTMLInputElement>(null);
     const [filter, setFilter] = useState("all");
+
+    useEffect(() => {
+        localStorage.setItem("items", JSON.stringify(todos));
+    }, [todos]);
 
     const addTodo = (e: FormEvent) => {
         e.preventDefault();
