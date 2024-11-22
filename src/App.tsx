@@ -10,9 +10,9 @@ interface Item {
 }
 
 const defaultItems: Item[] = [
-  { id: 1, text: "Тестовое задание", completed: false },
-  { id: 2, text: "Прекрасный код", completed: true },
-  { id: 3, text: "Покрытие тестами", completed: false },
+  { id: 1, text: "Пример 1", completed: false },
+  { id: 2, text: "Пример 2", completed: true },
+  { id: 3, text: "Пример 3", completed: false },
 ]
 
 const filters = [
