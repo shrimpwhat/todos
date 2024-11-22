@@ -4,9 +4,9 @@ import App from "./App"
 
 test("renders initial todos", () => {
   render(<App />)
-  expect(screen.getByText("Тестовое задание")).toBeInTheDocument()
-  expect(screen.getByText("Прекрасный код")).toBeInTheDocument()
-  expect(screen.getByText("Покрытие тестами")).toBeInTheDocument()
+  expect(screen.getByText("Пример 1")).toBeInTheDocument()
+  expect(screen.getByText("Пример 2")).toBeInTheDocument()
+  expect(screen.getByText("Пример 3")).toBeInTheDocument()
 })
 
 test("adds a new todo", () => {
@@ -32,42 +32,42 @@ test("filters active todos", () => {
   render(<App />)
   const activeFilter = screen.getByText("Active")
   fireEvent.click(activeFilter)
-  expect(screen.queryByText("Прекрасный код")).not.toBeInTheDocument()
-  expect(screen.getByText("Тестовое задание")).toBeInTheDocument()
-  expect(screen.getByText("Покрытие тестами")).toBeInTheDocument()
+  expect(screen.queryByText("Пример 2")).not.toBeInTheDocument()
+  expect(screen.getByText("Пример 1")).toBeInTheDocument()
+  expect(screen.getByText("Пример 3")).toBeInTheDocument()
 
-  fireEvent.click(screen.getByText("Тестовое задание"))
-  expect(screen.queryByText("Тестовое задание")).not.toBeInTheDocument()
+  fireEvent.click(screen.getByText("Пример 1"))
+  expect(screen.queryByText("Пример 1")).not.toBeInTheDocument()
 })
 
 test("filters completed todos", () => {
   render(<App />)
   const completedFilter = screen.getByText("Completed")
   fireEvent.click(completedFilter)
-  expect(screen.getByText("Прекрасный код")).toBeInTheDocument()
-  expect(screen.queryByText("Тестовое задание")).not.toBeInTheDocument()
-  expect(screen.queryByText("Покрытие тестами")).not.toBeInTheDocument()
+  expect(screen.getByText("Пример 2")).toBeInTheDocument()
+  expect(screen.queryByText("Пример 1")).not.toBeInTheDocument()
+  expect(screen.queryByText("Пример 3")).not.toBeInTheDocument()
 
-  fireEvent.click(screen.getByText("Прекрасный код"))
-  expect(screen.queryByText("Прекрасный код")).not.toBeInTheDocument()
+  fireEvent.click(screen.getByText("Пример 2"))
+  expect(screen.queryByText("Пример 2")).not.toBeInTheDocument()
 })
 
 test("clears completed todos", () => {
   render(<App />)
   const clearButton = screen.getByText("Clear completed")
   fireEvent.click(clearButton)
-  expect(screen.queryByText("Прекрасный код")).not.toBeInTheDocument()
+  expect(screen.queryByText("Пример 2")).not.toBeInTheDocument()
 })
 
 test("displays correct count of items left", () => {
   render(<App />)
 
   expect(screen.getByText("2 items left")).toBeInTheDocument()
-  fireEvent.click(screen.getByText("Тестовое задание"))
+  fireEvent.click(screen.getByText("Пример 1"))
   expect(screen.getByText("1 items left")).toBeInTheDocument()
 
   fireEvent.click(screen.getByText("Completed"))
-  fireEvent.click(screen.getByText("Тестовое задание"))
+  fireEvent.click(screen.getByText("Пример 1"))
 
   expect(screen.getByText("2 items left")).toBeInTheDocument()
 })
