@@ -1,3 +1,5 @@
 # Todo list
 
-Simple app built with React and Tailwind
+SPA: React + Tailwind.
+
+[Tests](src/App.test.tsx)
